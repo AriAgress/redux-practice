@@ -1,10 +1,10 @@
 import { combineReducers } from "redux";
-import colorSwitch from "./colorSwitch"
+import colorReducer from "./colorSwitch"
 import searchMovies from "./searchMovies"
 import searchTerms from './searchTerms'
 
 const allReducers = combineReducers({
-  colorSwitch,
+  colorSwitch: colorReducer,
   searchMovies,
   searchTerms,
 });

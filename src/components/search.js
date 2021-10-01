@@ -8,7 +8,8 @@ const SearchContainer = styled.div`
   height: 35px;
   width: 350px;
 
-  background-color: rgb(60, 64, 67);
+  background-color: ${props =>
+    props.colorSwitch === true ? 'rgb(255,255,255)' : 'rgb(60, 64, 67)'};
   border-radius: 50px;
 
   display: flex;
@@ -24,7 +25,8 @@ const TextBox = styled.input`
   outline: none;
   font-size: 20px;
   background: none;
-  color: rgb(183, 198, 185);
+  color: ${props =>
+    props.colorSwitch === true ? 'rgb(32,33,35)' : 'rgb(183, 198, 185)'};
 
   /* @media (max-width: 575px) {
     width: 300px;
@@ -45,7 +47,8 @@ const SearchButton = styled.button`
 
   font-size: 20px;
   background: none;
-  color: rgb(183, 198, 185);
+  color: ${props =>
+    props.colorSwitch === true ? 'rgb(32,33,35)' : 'rgb(183, 198, 185)'};
 
   display: flex;
   align-items: center;
@@ -54,7 +57,8 @@ const SearchButton = styled.button`
 
   &:hover {
     cursor: pointer;
-    color: white;
+    color: ${props =>
+      props.colorSwitch === true ? 'rgb(183, 198, 185)' : 'rgb(32,33,35)'};
   }
   /* @media (max-width: 575px) {
     width: 30px;
@@ -65,6 +69,7 @@ const SearchButton = styled.button`
 
 const Search = () => {
   const ssearch = useSelector(state => state.searchTerms);
+  const colorSwitch = useSelector(state => state.colorSwitch);
   const dispatch = useDispatch();
 
   const onChange = e => {
@@ -74,17 +79,23 @@ const Search = () => {
 
   const onClick = async e => {
     e.preventDefault();
+    if (ssearch === '') {
+      alert('Please enter a movie title')
+      return;
+    }
     const res = await API.searchAPI(ssearch);
-    dispatch(searchMovie(res.Search));
-    console.log(res);
+
+    if (res.Response === 'True') dispatch(searchMovie(res.Search));
   };
 
   return (
     <div>
       <form>
-        <SearchContainer>
-          <TextBox onChange={onChange} />
-          <SearchButton onClick={e => onClick(e)}>GO</SearchButton>
+        <SearchContainer colorSwitch={colorSwitch}>
+          <TextBox colorSwitch={colorSwitch} onChange={onChange} />
+          <SearchButton colorSwitch={colorSwitch} onClick={e => onClick(e)}>
+            GO
+          </SearchButton>
         </SearchContainer>
       </form>
     </div>

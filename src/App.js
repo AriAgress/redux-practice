@@ -1,30 +1,22 @@
 import './App.css';
-import { useSelector, useDispatch } from 'react-redux';
-import { darkMode } from './actions';
+import { useSelector } from 'react-redux';
 
 import MovieCard from './components/MovieCard'
 import AppBody from './components/appstyle'
 import Search from './components/search';
 import Nav from './components/navBar';
+import ModeSwitch from './components/ModeSwitch'
 
 function App() {
-  const dark = useSelector(state => state);
-  const dispatch = useDispatch();
-
-  // const styles = {
-  //   text: {
-  //     color: dark ? 'white' : 'black',
-  //   },
-  // };
+    const colorSwitch = useSelector(state => state.colorSwitch);
 
   return (
-    <AppBody>
+    <AppBody colorSwitch={colorSwitch} >
       <Nav>
         <Search />
       </Nav>
+      <ModeSwitch>hit me</ModeSwitch>
       <MovieCard/>
-      {/* <button onClick={() => dispatch(darkMode())}>Switch</button>
-      <h1 style={styles.text}>{dark ? 'this is true' : 'this is false'} </h1> */}
     </AppBody>
   );
 }

@@ -1,20 +1,26 @@
 import React from 'react'
 import styled from 'styled-components'
+import { useSelector } from 'react-redux';
 
 const Nav = styled.div`
   height: 5rem;
-  background-color: rgb(18, 18, 18);
   display: flex;
   justify-content: center;
   align-items: center;
+  background-color: ${props =>
+    props.colorSwitch === true ? 'rgb(210,210,210)' : 'rgb(18, 18, 18)'};
 `;
 
-const navBar = (props) => {
+const NavBar = (props) => {
+    const colorSwitch = useSelector(state => state.colorSwitch);
+
   return (
-    <Nav>
+    <Nav
+    colorSwitch={colorSwitch}
+    >
       {props.children}
     </Nav>
   )
 }
 
-export default navBar
+export default NavBar
